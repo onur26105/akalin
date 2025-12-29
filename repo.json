@@ -3,6 +3,6 @@
     "description": "Türkçe içerikli eklenti havuzu",
     "manifestVersion": 1,
     "pluginLists": [
-      "https://raw.githubusercontent.com/onur26105/akalin/builds/repo.json"
+      "https://github.com/onur26105/akalin"
     ]
 }
