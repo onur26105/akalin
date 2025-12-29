@@ -1,0 +1,34 @@
+name: Build
+
+on:
+  push:
+    branches: [ master, main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+
+    - name: Build
+      run: |
+        chmod +x gradlew
+        ./gradlew make
+
+    - name: Push to builds branch
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git checkout -b builds
+        git add -f .
+        git commit -m "Build $(date +'%Y-%m-%d %H:%M')"
+        git push -f origin builds
